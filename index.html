@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fun Test Page</title>
+  <style>
+    :root {
+      --primary: hsl(280, 70%, 50%);
+      --secondary: hsl(180, 70%, 50%);
+      --accent: hsl(45, 90%, 60%);
+      --bg: hsl(220, 20%, 10%);
+      --text: hsl(0, 0%, 95%);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+    }
+
+    main {
+      max-width: 800px;
+      width: 100%;
+    }
+
+    h1 {
+      font-size: 3rem;
+      text-align: center;
+      margin-bottom: 2rem;
+      background: linear-gradient(135deg, var(--primary), var(--secondary), var(--accent));
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: shimmer 3s ease-in-out infinite;
+    }
+
+    @keyframes shimmer {
+
+      0%,
+      100% {
+        filter: hue-rotate(0deg);
+      }
+
+      50% {
+        filter: hue-rotate(20deg);
+      }
+    }
+
+    .container {
+      background: hsl(220, 20%, 15%);
+      padding: 2rem;
+      border-radius: 1rem;
+      box-shadow: 0 8px 32px hsla(0, 0%, 0%, 0.4);
+    }
+
+    .button-group {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      margin-bottom: 2rem;
+    }
+
+    button {
+      padding: 1rem 2rem;
+      font-size: 1rem;
+      font-weight: 600;
+      border: none;
+      border-radius: 0.5rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      flex: 1;
+      min-width: 150px;
+    }
+
+    button:focus {
+      outline: 3px solid var(--accent);
+      outline-offset: 3px;
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: var(--text);
+    }
+
+    .btn-primary:hover {
+      background: hsl(280, 70%, 60%);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px hsla(280, 70%, 50%, 0.4);
+    }
+
+    .btn-secondary {
+      background: var(--secondary);
+      color: var(--bg);
+    }
+
+    .btn-secondary:hover {
+      background: hsl(180, 70%, 60%);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px hsla(180, 70%, 50%, 0.4);
+    }
+
+    .btn-accent {
+      background: var(--accent);
+      color: var(--bg);
+    }
+
+    .btn-accent:hover {
+      background: hsl(45, 90%, 70%);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px hsla(45, 90%, 60%, 0.4);
+    }
+
+    .output {
+      background: hsl(220, 20%, 12%);
+      padding: 1.5rem;
+      border-radius: 0.5rem;
+      min-height: 150px;
+      margin-bottom: 2rem;
+      border: 2px solid hsl(220, 20%, 20%);
+    }
+
+    .output p {
+      margin-bottom: 0.5rem;
+      line-height: 1.6;
+    }
+
+    .counter {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    .counter-display {
+      font-size: 4rem;
+      font-weight: 700;
+      color: var(--accent);
+      text-shadow: 0 0 20px hsla(45, 90%, 60%, 0.5);
+    }
+
+    .emoji-rain {
+      position: fixed;
+      pointer-events: none;
+      font-size: 2rem;
+      animation: fall 3s linear;
+    }
+
+    @keyframes fall {
+      to {
+        transform: translateY(100vh) rotate(360deg);
+        opacity: 0;
+      }
+    }
+
+    footer {
+      margin-top: 2rem;
+      text-align: center;
+      color: hsl(0, 0%, 60%);
+    }
+  </style>
+</head>
+
+<body>
+  <main>
+    <h1>🎉 Fun Test Page 🎉</h1>
+
+    <div class="container">
+      <div class="counter">
+        <p>Click counter:</p>
+        <div class="counter-display" id="counter">0</div>
+      </div>
+
+      <div class="button-group">
+        <button class="btn-primary" id="greetBtn">Say Hello</button>
+        <button class="btn-secondary" id="jokeBtn">Tell a Joke</button>
+        <button class="btn-accent" id="rainBtn">Make it Rain!</button>
+      </div>
+
+      <div class="output" id="output">
+        <p>Click a button to see something happen! 👆</p>
+      </div>
+    </div>
+
+    <footer>
+      <p>Test page created with ❤️</p>
+    </footer>
+  </main>
+
+  <script>
+    let clickCount = 0;
+    const counter = document.getElementById('counter');
+    const output = document.getElementById('output');
+    const greetBtn = document.getElementById('greetBtn');
+    const jokeBtn = document.getElementById('jokeBtn');
+    const rainBtn = document.getElementById('rainBtn');
+
+    const jokes = [
+      "Why do programmers prefer dark mode? Because light attracts bugs! 🐛",
+      "Why did the JavaScript developer wear glasses? Because they couldn't C# 👓",
+      "How many programmers does it take to change a light bulb? None, that's a hardware problem! 💡",
+      "Why do Java developers wear glasses? Because they don't C++ 🤓",
+      "What's a programmer's favorite place to hang out? The Foo Bar! 🍺"
+    ];
+
+    const greetings = [
+      "Hello there! 👋",
+      "Greetings, human! 🤖",
+      "Well hello! 😊",
+      "Hey! Nice to see you! 🎊",
+      "Howdy partner! 🤠"
+    ];
+
+    const emojis = ['🎉', '⭐', '🌈', '🎨', '🚀', '💫', '✨', '🎪'];
+
+    function updateCounter() {
+      clickCount++;
+      counter.textContent = clickCount;
+    }
+
+    function updateOutput(message) {
+      const timestamp = new Date().toLocaleTimeString();
+      const p = document.createElement('p');
+      p.textContent = `[${timestamp}] ${message}`;
+      output.textContent = '';
+      output.appendChild(p);
+    }
+
+    function createEmojiRain() {
+      const emoji = document.createElement('div');
+      emoji.className = 'emoji-rain';
+      emoji.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+      emoji.style.left = Math.random() * 100 + 'vw';
+      emoji.style.top = '-50px';
+      document.body.appendChild(emoji);
+
+      setTimeout(() => {
+        emoji.remove();
+      }, 3000);
+    }
+
+    greetBtn.addEventListener('click', () => {
+      updateCounter();
+      const greeting = greetings[Math.floor(Math.random() * greetings.length)];
+      updateOutput(greeting);
+    });
+
+    jokeBtn.addEventListener('click', () => {
+      updateCounter();
+      const joke = jokes[Math.floor(Math.random() * jokes.length)];
+      updateOutput(joke);
+    });
+
+    rainBtn.addEventListener('click', () => {
+      updateCounter();
+      updateOutput('Making it rain! 🌧️');
+      for (let i = 0; i < 20; i++) {
+        setTimeout(() => createEmojiRain(), i * 100);
+      }
+    });
+
+    // Easter egg: Konami code
+    let konamiCode = [];
+    const konamiSequence = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a'];
+
+    document.addEventListener('keydown', (e) => {
+      konamiCode.push(e.key);
+      konamiCode = konamiCode.slice(-10);
+
+      if (konamiCode.join(',') === konamiSequence.join(',')) {
+        updateOutput('🎮 KONAMI CODE ACTIVATED! You found the secret! 🏆');
+        for (let i = 0; i < 50; i++) {
+          setTimeout(() => createEmojiRain(), i * 50);
+        }
+      }
+    });
+  </script>
+</body>
+
+</html>
