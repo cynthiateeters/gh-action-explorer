@@ -2,6 +2,8 @@ name: Take screenshots
 
 on:
   push:
+    paths:
+      - 'src/**'
   workflow_dispatch:
 
 permissions:
@@ -9,6 +11,7 @@ permissions:
 
 jobs:
   shot-scraper:
+    if: github.actor != 'github-actions[bot]'
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
@@ -37,6 +40,19 @@ jobs:
     - name: Take shots
       run: |
         shot-scraper multi shots.yml
+    - name: Timestamp and move screenshots
+      run: |
+        ts=$(date -u +"%Y-%m-%d_%H-%M-%SZ")
+        mkdir -p screenshots
+        for f in *.png *.jpg *.jpeg; do
+          [ -f "$f" ] || continue
+          mv "$f" "screenshots/${ts}-${f}"
+        done
+    - name: Prune old screenshots (keep last 5)
+      run: |
+        mkdir -p screenshots
+        # remove all but 5 newest files
+        ls -1t screenshots | tail -n +6 | xargs -r -I{} rm -- "screenshots/{}" || true
     - name: Commit and push
       run: |-
         git config user.name "Automated"
