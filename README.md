@@ -94,17 +94,20 @@ This creates a visual timeline of your website's appearance over time.
 ### Getting started
 
 1. **Fork or clone this repository**
-2. **Update `shots.yml`** with your website URL
+2. **Update `shots.yml`** with your website URL (the workflow runs when files under `src/` change)
 3. **Commit and push** - The action will run automatically
 4. **Check the Actions tab** to see the workflow progress
 5. **View the screenshot** - After the action completes, `shot.png` will appear in your repository
 
 ### Understanding the files
 
-- `.github/workflows/shots.yml` - The GitHub Actions workflow configuration
+- `.github/workflows/shots.yml` - The GitHub Actions workflow configuration (now triggers on `src/**`)
 - `shots.yml` - Configuration file that defines what screenshots to take
 - `requirements.txt` - Python package dependencies file. This is a standard pip (Python's package installer) convention that lists all Python packages needed for the project. When the workflow runs `pip install -r requirements.txt`, it automatically installs all listed packages (in this case, shot-scraper). This file is typically kept in the repository root following Python community conventions.
-- `shot.png` - The captured screenshot (created by the action)
+- `src/index.html` - The test site source (the workflow watches `src/` for changes)
+- `screenshots/` - Folder where generated screenshots are stored; contains `.gitkeep` so the empty directory is tracked
+- `docs/gh-actions.md` - Beginner-friendly documentation for the `shots.yml` workflow
+- `shot.png` - Example captured screenshot (created by the action)
 
 ### Troubleshooting
 
