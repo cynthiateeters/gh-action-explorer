@@ -1,0 +1,4 @@
+{
+  // Enable SpecStory auto-save of session history
+  "specstory.autoSave": true
+}
